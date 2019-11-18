@@ -25,3 +25,7 @@ Test SSH connection
 ```
 $ ansible all -m ping
 ```
+
+## ONOS/Mininet Deployment
+
+This is an Ansible practice to deploy a Software-Defined Network environment with ONOS as the controller and Mininet
