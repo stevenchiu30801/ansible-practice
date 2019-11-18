@@ -1,0 +1,20 @@
+---
+- name: Clone ONOS source code
+  git:
+    repo: https://gerrit.onosproject.org/onos.git
+    dest: "{{ ansible_user_home_dir }}/onos"
+    version: "{{ onos_version }}"
+
+- name: Build ONOS
+  shell: bazel build onos
+  args:
+    chdir: "{{ ansible_user_home_dir }}/onos"
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_user_home_dir }}/bin"
+
+- name: Customize Bash environment
+  blockinfile:
+    path: "{{ ansible_user_home_dir }}/.bashrc"
+    block: |
+      export ONOS_ROOT=~/onos
+      source $ONOS_ROOT/tools/dev/bash_profile

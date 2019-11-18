@@ -1,2 +1,8 @@
-vm/.vagrant/*
-vm/*.log
+vm/*
+!vm/Vagrantfile
+*.retry
+
+# Ansible inventory
+inventory/*
+!inventory/sample
+!inventory/onos-deploy

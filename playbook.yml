@@ -1,0 +1,14 @@
+---
+- hosts: onos-nodes
+  roles:
+    - { role: onos/bazel }
+    - { role: onos/preinstall }
+    - { role: onos/build }
+  tags:
+    - onos
+
+- hosts: mn-nodes
+  roles:
+    - { role: mininet }
+  tags:
+    - mininet

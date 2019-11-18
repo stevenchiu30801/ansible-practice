@@ -1,0 +1,11 @@
+---
+- name: Install ONOS dependencies
+  become: yes
+  apt:
+    pkg:
+      - zip
+      - curl
+      - unzip
+      - python
+      - python3
+      - bzip2 

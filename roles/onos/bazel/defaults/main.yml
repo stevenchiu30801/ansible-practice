@@ -1,0 +1,4 @@
+---
+bazel_version: 1.0.0
+bazel_installer: bazel-{{ bazel_version }}-installer-linux-x86_64.sh
+bazel_installer_url: https://github.com/bazelbuild/bazel/releases/download/{{ bazel_version }}/bazel-{{ bazel_version }}-installer-linux-x86_64.sh

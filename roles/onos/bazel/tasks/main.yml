@@ -1,0 +1,35 @@
+---
+- name: Install Bazel prerequisites
+  become: yes
+  apt:
+    pkg:
+    - pkg-config
+    - zip
+    - g++
+    - zlib1g-dev
+    - unzip
+    - python3
+
+- name: Download Bazel binary installer
+  get_url:
+    url: "{{ bazel_installer_url }}"
+    dest: "{{ ansible_user_home_dir }}/{{ bazel_installer }}"
+    mode: 0774
+
+- name: Run Bazel installer
+  shell: "{{ ansible_user_home_dir }}/{{bazel_installer }} --user"
+
+- name: Check Bazel version
+  shell: bazel version
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_user_home_dir }}/bin"
+  register: bazel_version_output
+  tags:
+    - check
+
+- name: Debug Bazel version
+  debug: 
+    msg: "{{ bazel_version_output.stdout }}"
+  when: not ansible_check_mode
+  tags:
+    - check

@@ -1,0 +1,24 @@
+---
+- name: Clone Mininet source code
+  git:
+    repo: https://github.com/mininet/mininet.git
+    dest: "{{ ansible_user_home_dir }}/mininet"
+    version: "{{ mininet_version }}"
+
+- name: Install Mininet, OpenFlow reference implementation and Open vSwitch
+  shell: "{{ ansible_user_home_dir }}/mininet/util/install.sh -fnv"
+
+- name: Check Mininet pingall
+  become: yes
+  shell: "mn --test pingall"
+  register: mn_pingall_output
+  tags:
+    - check
+
+# Mininet log is output to stderr
+- name: Debug Mininet pingall
+  debug:
+    msg: "{{ mn_pingall_output.stderr_lines }}"
+  when: not ansible_check_mode
+  tags:
+    - check
